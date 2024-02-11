@@ -12,16 +12,17 @@ public class Episodio {
 
     public Episodio(Integer numeroTemporada, DadosEpisodio dadosEpisodio) {
         this.titulo = dadosEpisodio.titulo();
-        this.numeroEpisodio = dadosEpisodio.numero();
-        
+        this.numeroEpisodio = dadosEpisodio.numero();        
+        this.numeroTemporada = numeroTemporada;
+
         try {
             this.avaliacao = Double.valueOf(dadosEpisodio.avaliacao());
-            this.numeroTemporada = numeroTemporada;
-            this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
         } catch(NumberFormatException e) {
             this.avaliacao = 0.0;
-        } catch(NullPointerException e) {
-            this.numeroTemporada = 0;
+        }
+        
+        try {
+            this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
         } catch(DateTimeParseException e) {
             this.dataLancamento = null;
         }
