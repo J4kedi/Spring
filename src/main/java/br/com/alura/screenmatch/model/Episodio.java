@@ -2,7 +2,6 @@ package br.com.alura.screenmatch.model;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
-import java.util.OptionalDouble;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -31,7 +30,12 @@ public class Episodio {
         this.titulo = dadosEpisodio.titulo();
         this.numeroEpisodio = dadosEpisodio.numero();        
         this.numeroTemporada = numeroTemporada;
-        this.avaliacao = OptionalDouble.of(Double.valueOf(dadosEpisodio.avaliacao())).orElse(0);
+        
+        try {
+            this.avaliacao = Double.valueOf(dadosEpisodio.avaliacao());
+        } catch (NumberFormatException ex) {
+            this.avaliacao = 0.0;
+        }
         
         try {
             this.dataLancamento = LocalDate.parse(dadosEpisodio.dataLancamento());
