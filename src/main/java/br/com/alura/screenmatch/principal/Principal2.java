@@ -90,7 +90,7 @@ public class Principal2 {
 
         if(nomeBuscado.isPresent()) {
             System.out.println("Episódio encontrado!");
-            System.out.println("Temporada: " + nomeBuscado.get().getNumeroTemporada() + ", Titulo: " + nomeBuscado.get().getTitulo());
+            System.out.println("Temporada: " + nomeBuscado.get().getTemporada() + ", Titulo: " + nomeBuscado.get().getTitulo());
         } else {
             System.out.println("Episódio não encontrado!");
         }
@@ -106,14 +106,14 @@ public class Principal2 {
         episodios.stream()
             .filter(e -> e.getDataLancamento() != null && e.getDataLancamento().isAfter(dataBusca))
             .forEach(e -> System.out.println(
-                "Temporada: " + e.getNumeroTemporada() + 
+                "Temporada: " + e.getTemporada() + 
                     ", Episódio: " + e.getTitulo() +
                     ", Data Lancamento: " + e.getDataLancamento().format(formatador)
             ));
 
         Map<Integer, Double> avaliacoesTemporada = episodios.stream()
                 .filter(e -> e.getAvaliacao() > 0.0)
-                .collect(Collectors.groupingBy(Episodio::getNumeroTemporada, 
+                .collect(Collectors.groupingBy(Episodio::getTemporada, 
                     Collectors.averagingDouble(Episodio::getAvaliacao)));
 
         System.out.println(avaliacoesTemporada);
